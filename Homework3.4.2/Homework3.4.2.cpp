@@ -30,11 +30,11 @@ void sort(address* addresses, int size)
         swap = false;
         for (int num = size - 1; num > 0; --num) 
         {
-            if (&addresses[num - 1] > &addresses[num])
+            if (addresses[num - 1].city > addresses[num].city)
             {
-                address temp = addresses[num - 1];
-                addresses[num - 1] = addresses[num];
-                addresses[num] = temp;
+                std::string temp = addresses[num - 1].city;
+                addresses[num - 1].city = addresses[num].city;
+                addresses[num].city = temp;
                 swap = true;
             }
         }

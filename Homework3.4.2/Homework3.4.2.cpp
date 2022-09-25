@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <cstring>
+#include <string>
 
 class address
 {
@@ -13,28 +13,28 @@ public:
     int house = 0;
     int room = 0;
 public:
+    address(std::string city, std::string street, int house, int room) {}
+    address () {}
     std::string get_output_address()
     {
-        std::string glue = city + ", " + street + ", " + static_cast<char>(house) + ", " + static_cast<char>(room);
+        std::string glue = city + ", " + street + ", " + std::to_string(house) + ", " + std::to_string(room);
         return glue;
     }
 };
 
 void sort(address* addresses, int size)
 {
-    size = sizeof(addresses) / sizeof(addresses[0]);
     bool swap = false;
     do
     {
         swap = false;
         for (int num = size - 1; num > 0; --num) 
         {
-            if (strcmp(addresses[num - 1], addresses[num]) > 0)
+            if (&addresses[num - 1] > &addresses[num])
             {
-                char temp[num];
-                strcpy(temp, addresses[i]);
-                strcpy(addresses[num], addresses[num - 1]);
-                strcpy(addresses[num - 1], temp);
+                address temp = addresses[num - 1];
+                addresses[num - 1] = addresses[num];
+                addresses[num] = temp;
                 swap = true;
             }
         }
@@ -70,7 +70,9 @@ int main(int argc, char** argv)
         in >> array[i].room;
     }
 
-    for (int i = line - 1; i >= 0; --i) {
+    sort(array, line);
+
+    for (int i = 0; i < line; ++i) {
         out << array[i].get_output_address() << std::endl;
     }
 
